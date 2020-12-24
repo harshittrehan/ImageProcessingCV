@@ -130,7 +130,7 @@ int main(int argc, const char * argv[]) {
     Matrix houghParameterMatrix = createMatrix(houghImage.height, houghImage.width);
     int radius = (int)(MIN(houghEdges.height/2, houghEdges.width/2));
     OutputParams_3D houghArray = houghTransformCircle(houghMatrix, radius, houghParameterMatrix);
-    Image houghParameterImage = matrix2Image(houghParameterMatrix, 0, 1.0);
+    Image houghParameterImage = matrix2Image(houghParameterMatrix, 1, 1.0);
     writeImage(houghParameterImage, concat(directory, "hough_parameter_space_image.pgm"));
     Matrix maxMatrix = findHoughMaxima(houghArray, number, minDist);
     for (int i = 0; i < number; i++){

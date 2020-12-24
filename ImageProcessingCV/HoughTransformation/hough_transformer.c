@@ -108,7 +108,6 @@ OutputParams_3D houghTransformCircle(Matrix mxSpatial, int radius, Matrix output
             }
         }
     }
-
     deleteMatrix(sinCosMap);
     return mxParam;
 }
