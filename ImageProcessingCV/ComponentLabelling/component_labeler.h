@@ -8,12 +8,12 @@
 
 #ifndef NETPBM
 #define NETPBM
+#include "../netpbm.h"
 #endif
-#include <stdio.h>
 
 // To find connected components in a black and white image with atleast <threshold> number of
 // pixels in a component. Also, saves an image with different components in different colors.
-void connectedComponents(Image img, int threshold);
+Image connectedComponents(Image img, int threshold);
 
 // Helper function which is recursively called by connectedComponents() and impleemnts an
 // efficient component labelling algorithm. <componentMatrix> is the resulting labelled

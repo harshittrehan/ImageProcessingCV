@@ -44,7 +44,7 @@ void efficientComponentLabeling(Matrix componentMatrix, Image img, int x, int y,
     }
 }
 
-void connectedComponents(Image img, int threshold){
+Image connectedComponents(Image img, int threshold){
     Matrix componentMatrix = createMatrix(img.height, img.width);
     int x;
     int y;
@@ -102,6 +102,7 @@ void connectedComponents(Image img, int threshold){
             }
         }
     }
-    
-    writeImage(img, "/Users/harshittrehan/Desktop/ImageProcessingCV/ImageProcessingCV/components_colored.ppm");
+    deleteMatrix(componentMatrix);
+    free(pixelValues);
+    return img;
 }

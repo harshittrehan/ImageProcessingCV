@@ -20,7 +20,7 @@ char* concat(const char *s1, const char *s2);
 // Converts given Image to black and white. If the background is darker than the image pass background=0
 // and all pixels above <threshold> are turned black and rest are turned white. If background is lighter,
 // pass background = 1 and all pixels below <threshold> are turned black and rest are turned white.
-Image createBlackAndWhite(Image original, int threshold, int background);
+Image createBlackAndWhite(Image original, int threshold, int background, Image blackWhite);
 
 // Creates a deep copy of <original> Image into <copy> Image.
 void deepCopy(Image original, Image copy);

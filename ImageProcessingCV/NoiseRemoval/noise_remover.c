@@ -21,7 +21,7 @@
 #include "../Utility/processing_utility.h"
 #endif
 
-void expand(Image finalImage, Image originalImage){
+Image expand(Image originalImage , Image finalImage) {
     int x, y;
     
     //These vectors are used to check the 4-Neighbors.
@@ -54,9 +54,10 @@ void expand(Image finalImage, Image originalImage){
             }
         }
     }
+    return finalImage;
 }
 
-void shrink(Image finalImage, Image originalImage){
+Image shrink(Image originalImage , Image finalImage) {
     int x, y;
     
     //These vectors are used to check the 4-Neighbors.
@@ -89,9 +90,10 @@ void shrink(Image finalImage, Image originalImage){
             }
         }
     }
+    return finalImage;
 }
 
-void noiseImage(Image img, float probability){
+Image createNoisyImage(Image img, float probability) {
     int x;
     int y;
     
@@ -106,4 +108,5 @@ void noiseImage(Image img, float probability){
             }
         }
     }
+    return img;
 }

@@ -16,8 +16,8 @@
 #include "hough_transformer.h"
 #endif
 
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include <math.h>
 #include <time.h>
@@ -145,7 +145,7 @@ void insertMaxEntry(Matrix  mx, int vPos, int hPos, int radius, double strength,
     mx.map[3][index] = strength;
 }
 
-// Delete entry number i from the list of maxima mx.
+// Delete entry <i>'th entry from the list of maxima mx.
 void deleteMaxEntry(Matrix mx, int i) {
     
     if(i==mx.width-1){

@@ -36,10 +36,9 @@ char* concat(const char *s1, const char *s2) {
     return result;
 }
 
-Image createBlackAndWhite(Image original, int threshold, int background) {
+Image createBlackAndWhite(Image original, int threshold, int background, Image blackWhite) {
     int x;
     int y;
-    Image blackWhite = createImage(original.height, original.width);
     
     if(background==0) {
         for(x=0; x<original.height; x++){

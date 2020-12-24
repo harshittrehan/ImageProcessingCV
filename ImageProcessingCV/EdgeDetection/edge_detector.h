@@ -11,6 +11,8 @@
 #include "../netpbm.h"
 #endif
 
+// BOTH THESE FUNCTIONS BINARIZE THE EDGE POINTS INSTEAD OF HAVING DIFFERENT INTENSITY VALUES IN EDGES.
+
 // Detects edges in image using Sobel edge detector. All pixels in magnitude matrix above <threshold> are binarized as white
 // edges, those below are made black. <magnScale> is the value of gamma for gamma transformation of the image after magnitude
 // is calculated. This is necessray to get real-world values of the <threshold> otherwise <threshold> values can be very small/large.

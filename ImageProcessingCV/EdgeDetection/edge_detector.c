@@ -80,12 +80,7 @@ Image sobel(Image img, double magnScale, double threshold){
     deleteMatrix(horizontalGradient);
     deleteMatrix(verticalGradient);
     
-    /*
-     Scaling the image using Gamma Scaling with gamma = 0.5
-     My input image has lot of low intensity values, hence
-     using gamma = 0.5 scales the low intensity values and
-     spreads then out.
-     */
+    // Scaling image matrix to get real world threshold values using Gamme Scaling.
     magnitude = scaleImage(magnitude, magnScale);
     
     //Final output image
@@ -110,10 +105,8 @@ Image sobel(Image img, double magnScale, double threshold){
     return output_image;
 }
 
-/*
- This function takes an image and finds the edges
- using Canny filters and returns an image with the edges
-*/
+// This function takes an image and finds the edges
+// using Canny filters and returns an image with the edges.
 Image canny(Image img, double magnScale, double lowThreshold, double highThreshold) {
     
     //Converting smoothed image to image matrix
@@ -150,10 +143,7 @@ Image canny(Image img, double magnScale, double lowThreshold, double highThresho
     deleteMatrix(v);
     deleteMatrix(imageMatrix);
     
-    /*
-     This matrix stores the magnitudes of the gradient
-     values for each (i,j) pixel in the image.
-     */
+    // Magnitude matrix
     Matrix magnitude = createMatrix(img.height, img.width);
     for(int x=1; x<magnitude.height-1; x++){
         for(int y=1; y<magnitude.width-1; y++){
@@ -161,10 +151,7 @@ Image canny(Image img, double magnScale, double lowThreshold, double highThresho
         }
     }
     
-    /*
-     This Matrix stores the edge points after applying
-     Non Maxima Suppression.
-     */
+    // This Matrix stores the edge points after applying Non Maxima Suppression.
     Matrix nonMax = createMatrix(magnitude.height, magnitude.width);
     for(int x=0; x<magnitude.height; x++){
         for(int y=0; y<magnitude.width; y++){
@@ -175,19 +162,7 @@ Image canny(Image img, double magnScale, double lowThreshold, double highThresho
     //To convert angle from radians to degrees
     double val = 180.0/M_PI;
     
-    /*
-     Performing Non Maxima Suppression. In C, the atan2 function
-     returns angles in radians and in range [-PI, PI].
-     
-     So we first convert radians to degrees by multiplying with
-     the consntant factor: (180.0/PI) defined above.
-     
-     Then, if the value is less than 0, we add 180 to it to
-     convert all angles in the range [0, 180].
-     
-     Finally, we check the orientation (angle) value and perform
-     Non Maxima Suppression based on Sectors of the angles.
-     */
+    // Non Maxima Suppression
     for(int x=1; x<magnitude.height-1; x++){
         for(int y=1; y<magnitude.width-1; y++){
             double arctan = atan2(Q.map[x][y], P.map[x][y]) * val;
@@ -220,32 +195,11 @@ Image canny(Image img, double magnScale, double lowThreshold, double highThresho
     deleteMatrix(P);
     deleteMatrix(Q);
     
-    /*
-     Now, we need to scale our image matrix before
-     thresholding it, otherwise we get very low thresholds.
-     Scaling the image using Gamma Scaling with gamma = 0.5
-     My input image has lot of low intensity values, hence
-     using gamma = 0.5 scales the low intensity values and
-     spreads then out.
-     */
+    // Scaling image matrix to get real world threshold values using Gamme Scaling.
     nonMax = scaleImage(nonMax, magnScale);
-    
-    
-    //Low and High Threshold values for Hysterisis Thresholding.
 
     
-    /*
-     Performing 1st step of Hysterisis Thresholding.
-     
-     If the scaled non max magnitudes are less than the
-     low threshold, then it is not an edge.
-     
-     If they are more than high threshold, then it is an edge
-     and we binarize the edges here.
-     
-     If the value lies between the low and high thresholds, then
-     then we mark it as -1 representing a candidate edge.
-     */
+    // Hysterisis Thresholding step 1.
     for(int x=0; x<nonMax.height; x++){
         for(int y=0; y<nonMax.width; y++){
             //Edge point
@@ -263,21 +217,15 @@ Image canny(Image img, double magnScale, double lowThreshold, double highThresho
         }
     }
     
-    //X and Y vectors corresponding to 8-Neighbors required
-    //for 2nd step of Hysterisis thresholding
+    // X and Y vectors corresponding to 8-Neighbors required
+    // for 2nd step of Hysterisis thresholding
     int xVector[8] = {-1, -1, -1, 0, 0, 1, 1, 1};
     int yVector[8] = {-1, 0, 1, -1, 1, -1, 0, 1};
 
     //Final output image
     Image output_image = createImage(img.height, img.width);
     
-    /*
-     Performing 2nd step of Hysterisis thresholding.
-     
-     If value is -1 then it is an edge candidate. So we
-     check its 8-Neighbors and if any of them is an edge (255)
-     then we make that pixel an edge also.
-     */
+    // Hysterisis Thresholding step 2.
     for(int x=0; x<img.height; x++) {
         for(int y=0; y<img.width; y++) {
             
